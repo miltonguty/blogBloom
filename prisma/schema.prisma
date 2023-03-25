@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id           Int     @id @default(autoincrement())
+  name         String? @db.VarChar(45)
+  description  String? @db.VarChar(500)
+  image        String? @db.VarChar(500)
+  url          String? @db.VarChar(500)
+  new_tablecol String? @db.VarChar(45)
+}
+
+model posts {
+  id          Int     @default(autoincrement())
+  name        String? @db.VarChar(50)
+  contentHtml String? @db.LongText
+  mainImage   String? @db.LongText
+  image       String? @db.LongText
+  types_id    Int
+  types       types   @relation(fields: [types_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_posts_types")
+
+  @@id([id, types_id])
+  @@index([types_id], map: "fk_posts_types_idx")
+}
+
+model types {
+  id       Int     @id @default(autoincrement())
+  image    String? @db.VarChar(500)
+  url      String? @db.VarChar(500)
+  selected String? @db.VarChar(500)
+  posts    posts[]
+}

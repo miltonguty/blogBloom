@@ -7,58 +7,59 @@ router.get('/', function (req, res, next)
   let categorys = [{
     name: "services",
     description: "services ",
-    image: "image1.jpg",
+    image: "/images/posts/blog1.png",
     url: "/service"
   },
   {
     name: "february",
     description: "services ",
-    image: "image1.jpg",
+    image: "/images/posts/blog1.png",
     url: "/service"
   },
   {
     name: "museun",
     description: "services ",
-    image: "image1.jpg",
+    image: "/images/posts/blog1.png",
     url: "/service"
   },
   {
     name: "address",
     description: "services ",
-    image: "image1.jpg",
+    image: "/images/posts/blog1.png",
     url: "/service"
   },
   {
     name: "apris x kids",
     description: "services ",
-    image: "image1.jpg",
+    image: "/images/posts/blog1.png",
     url: "/service"
   },
   {
     name: "playground",
     description: "services ",
-    image: "image1.jpg",
+    image: "/images/posts/blog1.png",
     url: "/service"
   },
   {
     name: "history notes",
     description: "services ",
-    image: "image1.jpg",
+    image: "/images/posts/blog1.png",
     url: "/service"
   }
   ]
   let types = [
     {
-      image: "image.jpg", url: "/updatelistPost"
+      image: "/images/grid.svg",
+      url: "/updatelistPost", selected: true
     },
     {
-      image: "image.jpg", url: "/videos"
+      image: "/images/play.svg", url: "/videos", selected: false
     },
     {
-      image: "image.jpg", url: "/books"
+      image: "/images/images.svg", url: "/books", selected: false
     },
     {
-      image: "image.jpg", url: "/perons"
+      image: "/images/instagram.svg", url: "/perons", selected: false
     }
 
   ]
