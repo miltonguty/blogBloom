@@ -1,5 +1,29 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1(class="text-8xl font-bold text-center") 
+    p(class="text-sky-300") Blog
+      p(class="text-sky-600") bloomexperiences
+  nav
+    div(class="flex justify-center items-center flex-col") 
+      div(class="categories ")  
+        ul(class="list-item style-none")
+          each category in categorys
+            li.float-left
+              a(href=category.url)
+                img(src=category.image alt=category.name)
+
+      div(class="types ") 
+        ul(class="list-item style-none") 
+          each type in types
+            li.float-left
+              a(href=type.url)
+                img(src=type.image alt=type.name)
+
+  div(class="flex justify-center items-center flex-col border-t-2 border-b-2") 
+    div(class="block h-auto")
+      ul(class="list-item style-none ") 
+        each post in posts
+          li(class="float-left w-1/4 max-h-36")
+            a(href=post.url)
+              img(src=post.mainImage alt=post.name )
