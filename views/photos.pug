@@ -1,0 +1,11 @@
+doctype html
+html
+  include includes/header.pug
+  body
+    h1 milton
+    div(class="w-8/12 ml-auto mr-auto border-t-2")
+      div(class=" grid grid-cols-4")
+        each image in posts.images
+          div(class="float-left hover:border-color-primary border-solid hover:border-2")
+            a(href='')
+              img(src=image.url alt=image.name )

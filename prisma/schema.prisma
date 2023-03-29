@@ -8,31 +8,56 @@ datasource db {
 }
 
 model categories {
-  id           Int     @id @default(autoincrement())
-  name         String? @db.VarChar(45)
-  description  String? @db.VarChar(500)
-  image        String? @db.VarChar(500)
-  url          String? @db.VarChar(500)
-  new_tablecol String? @db.VarChar(45)
+  id          Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name        String? @db.VarChar(45)
+  description String? @db.VarChar(500)
+  image       String? @db.VarChar(500)
+  url         String? @db.VarChar(500)
+}
+
+model comments {
+  id       Int     @unique(map: "id_UNIQUE") @default(autoincrement())
+  comment  String? @db.VarChar(45)
+  autor    String? @db.VarChar(45)
+  likes    Int?
+  posts_id Int
+  posts    posts   @relation(fields: [posts_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_comments_posts1")
+
+  @@id([id, posts_id])
+  @@index([posts_id], map: "fk_comments_posts1_idx")
+}
+
+model images {
+  id       Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name     String? @db.VarChar(50)
+  url      String? @db.VarChar(50)
+  with     String? @db.VarChar(45)
+  heigth   String? @db.VarChar(45)
+  posts_id Int
+  posts    posts   @relation(fields: [posts_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_images_posts1")
+
+  @@index([posts_id], map: "fk_images_posts1_idx")
 }
 
 model posts {
-  id          Int     @default(autoincrement())
-  name        String? @db.VarChar(50)
-  contentHtml String? @db.LongText
-  mainImage   String? @db.LongText
-  image       String? @db.LongText
-  types_id    Int
-  types       types   @relation(fields: [types_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_posts_types")
+  id          Int        @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name        String?    @db.VarChar(50)
+  contentHtml String?    @db.LongText
+  mainImage   String?    @db.LongText
+  types_id    Int?
+  published   Int        @default(0) @db.TinyInt
+  comments    comments[]
+  images      images[]
+  types       types?     @relation(fields: [types_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_posts_types")
 
-  @@id([id, types_id])
   @@index([types_id], map: "fk_posts_types_idx")
 }
 
 model types {
-  id       Int     @id @default(autoincrement())
+  id       Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
   image    String? @db.VarChar(500)
   url      String? @db.VarChar(500)
   selected String? @db.VarChar(500)
+  nameType String? @db.VarChar(50)
   posts    posts[]
 }

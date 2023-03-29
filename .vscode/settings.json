@@ -1,4 +1,11 @@
 {
   "editor.guides.bracketPairs": true,
-  "editor.bracketPairColorization.enabled": true
+  "editor.bracketPairColorization.enabled": true,
+  "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false, // {
+  "javascript.format.placeOpenBraceOnNewLineForFunctions": false, //   }
+
+  "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+  "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "intelephense.format.braces": "k&r"
 }
