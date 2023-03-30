@@ -40,15 +40,17 @@ model images {
 }
 
 model posts {
-  id          Int        @id @unique(map: "id_UNIQUE") @default(autoincrement())
-  name        String?    @db.VarChar(50)
-  contentHtml String?    @db.LongText
-  mainImage   String?    @db.LongText
-  types_id    Int?
-  published   Int        @default(0) @db.TinyInt
-  comments    comments[]
-  images      images[]
-  types       types?     @relation(fields: [types_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_posts_types")
+  id           Int        @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name         String?    @db.VarChar(50)
+  contentHtml  String?    @db.LongText
+  mainMedia    String?    @db.LongText
+  types_id     Int?
+  published    Int        @default(0) @db.TinyInt
+  description  String?    @db.VarChar(800)
+  imagePreview String?    @db.VarChar(300)
+  comments     comments[]
+  images       images[]
+  types        types?     @relation(fields: [types_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_posts_types")
 
   @@index([types_id], map: "fk_posts_types_idx")
 }

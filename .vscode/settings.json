@@ -7,5 +7,6 @@
   "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
   "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "editor.guides.indentation": true,
   "intelephense.format.braces": "k&r"
 }

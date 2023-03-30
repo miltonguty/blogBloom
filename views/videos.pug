@@ -4,6 +4,18 @@ block content
     div(class="border-t-2 min-h-full") 
       div(class=" grid grid-cols-4")
         each post in posts
-          div(class="float-left hover:border-color-primary border-solid hover:border-2")
-            a(href="/photos/#{post.id}")
-              img(src=post.mainImage alt=post.name )
+          div(class="float-left hover:border-color-primary border-solid hover:border-2" onclick='showModal("video-'+post.id+'")' )
+            img(src=post.imagePreview,  alt=post.name )
+          div(id='video-'+post.id class="hidden")
+            div(class="flex flex-row")
+              div(class="w-2/3  flex justify-center items-center")
+                video(class="w-full h-full" controls)
+                  source(src=post.mainMedia  type="video/mp4")
+              div(class="w-1/3 text-sm p-5 border-solid border-l")=post.description
+  div(id="myModal" class="modal ")
+    span(class="close") X
+    div(class="modal-content")
+
+      div(id="modal-body")
+  script(src="/javascripts/bloom.js") 
+
