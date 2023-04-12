@@ -29,7 +29,11 @@ router.get('/blog/:type', async (req, res, next) => {
     {
       where,
       include: {
-        posts: true
+        posts: {
+          where: {
+            published: { equals: 1 }
+          }
+        }
       }
     }
   )

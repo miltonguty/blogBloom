@@ -29,11 +29,12 @@ model comments {
 
 model images {
   id       Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
-  name     String? @db.VarChar(50)
-  url      String? @db.VarChar(50)
+  name     String? @db.VarChar(500)
+  url      String? @db.VarChar(500)
   with     String? @db.VarChar(45)
   heigth   String? @db.VarChar(45)
   posts_id Int
+  class    String? @default("tall") @db.VarChar(45)
   posts    posts   @relation(fields: [posts_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_images_posts1")
 
   @@index([posts_id], map: "fk_images_posts1_idx")
@@ -46,8 +47,10 @@ model posts {
   mainMedia    String?    @db.LongText
   types_id     Int?
   published    Int        @default(0) @db.TinyInt
-  description  String?    @db.VarChar(800)
+  description  String?    @db.LongText
   imagePreview String?    @db.VarChar(300)
+  redirectTo   String?    @db.VarChar(400)
+  title        String?    @db.VarChar(500)
   comments     comments[]
   images       images[]
   types        types?     @relation(fields: [types_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_posts_types")

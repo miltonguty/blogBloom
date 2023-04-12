@@ -1,11 +1,18 @@
 doctype html
 html
-  include includes/header.pug
+  include includes/headerPage.pug
   body
-    h1 milton
+    a(href="/blog/images") 
+      div(class="font-mono text-3xl text-center border-color-primary rounded-full border-2 w-10 ml-5 mt-5 border-solid hover:bg-color-segundary hover:cursor-pointer" )='<' 
     div(class="w-8/12 ml-auto mr-auto border-t-2")
-      div(class=" grid grid-cols-4")
+      <div class="grid-wrapper ">
         each image in posts.images
-          div(class="float-left hover:border-color-primary border-solid hover:border-2")
-            a(href='')
-              img(src=image.url alt=image.name )
+          div(class=image.class+" item hover:cursor-pointer " onclick='showModal("image-'+image.id+'")')
+            img(src=image.url alt=image.name class="w-full h-auto block" )
+          div(id='image-'+image.id class="hidden ")
+            img(src=image.url alt=image.name class="w-full h-full block " )
+  div(id="myModal" class="modal ")
+    div(class="close font-mono text-3xl text-center border-color-primary rounded-full border-2 w-10 ml-5 mt-5 border-solid hover:bg-color-segundary hover:cursor-pointer" )='X' 
+    div(class="modal-content")
+      div(id="modal-body")
+  script(src="/javascripts/bloom.js") 

@@ -3,8 +3,8 @@ html
   include includes/header.pug
   body
     h1(class="text-8xl font-bold text-center") 
-      p(class="text-sky-300") Blog
-        p(class="text-sky-600") bloomexperiences
+      p(class="text-sky-300  font-Blinking") Blog
+        p(class="text-sky-600 font-Blinking") bloomexperiences
   nav
     div(class="flex justify-center items-center flex-col ") 
       div(class="categories  rounded-2xl mt-5 mb-2")  
@@ -18,13 +18,14 @@ html
       div(class="grid grid-cols-4 grid-rows-1")
         each type in types
           if type.selected=='1'
-            div(class="float-left w-full bg-color-primary")
-              div(class="ml-auto mr-auto w-7 h-7 ")
-                a(href=type.url)
+            a(href=type.url)
+              div(class="float-left w-full bg-color-primary py-1")
+                div(class="ml-auto mr-auto w-7 h-7 ")
                   img(src=type.image alt=type.name)
           else
-            div(class="float-left m-auto w-7 h-7")
-              a(href=type.url)
-                img(src=type.image alt=type.name) 
+            a(href=type.url)
+              div(class="float-left w-full hover:bg-color-primary py-1")
+                div(class="ml-auto mr-auto w-7 h-7 ")
+                  img(src=type.image alt=type.name class="text-color-segundary") 
   block content
   include includes/footer.pug

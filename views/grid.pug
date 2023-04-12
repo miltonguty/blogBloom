@@ -1,9 +1,11 @@
 extends layout
 block content
-  div(class="w-8/12 ml-auto mr-auto")
+  div(class="w-8/12 ml-auto mr-auto min-h-screen")
     div(class="border-t-2 min-h-full") 
       div(class=" grid grid-cols-4")
         each post in posts
-          div(class="float-left hover:border-color-primary border-solid hover:border-2")
-            a(href=post.url)
-              img(src=post.imagePreview alt=post.name )
+          div(class="float-left hover:border-color-primary border-solid hover:border-2 flex justify-center items-center bg-slate-100 m-2  hover:font-bold")
+            a(href=post.redirectTo target="_blank")
+              p(class="text-center")=post.title 
+              img(src=post.imagePreview alt=post.name class="w-full h-full")
+
