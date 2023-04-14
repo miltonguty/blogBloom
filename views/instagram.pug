@@ -6,6 +6,11 @@ block content
         each post in posts
           a(href=post.url target="_blank")
             div(class="float-left hover:border-color-primary border-solid hover:border-2 relative h-60 w-full" onclick='showModal("video-'+post.id+'")' )
-              div(style="background-image:url('/images/instagram/"+post.id+".jpg');"   alt=post.caption class="bg-cover bg-no-repeat bg-center w-full h-full" )
+              if post.type=='Video'
+                video(class="bg-cover bg-no-repeat bg-center w-full h-full" )
+                  source(src=post.videoUrl)
+              else
+                div(style="background-image:url('/images/instagram/"+post.id+".jpg');"   alt=post.caption class="bg-cover bg-no-repeat bg-center w-full h-full" )
+
 
 
