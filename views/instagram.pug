@@ -4,13 +4,15 @@ block content
     div(class="border-t-2 min-h-full") 
       div(class=" grid grid-cols-4")
         each post in posts
-          a(href=post.url target="_blank")
-            div(class="float-left hover:border-color-primary border-solid hover:border-2 relative h-60 w-full" onclick='showModal("video-'+post.id+'")' )
-              if post.type=='Video'
-                video(class="bg-cover bg-no-repeat bg-center w-full h-full" )
-                  source(src=post.videoUrl)
+          a(href=post.url target="_blank" id="post-"+post.id)
+            div(class="float-left hover:border-color-primary border-solid hover:border-2 relative h-60 w-full bg-color-segundary" onclick='showModal("video-'+post.id+'")' )
+              if post.type=='Sidecar'
+                div(class="m-2 flex justify-center items-center h-full " ) 
+                  div(class="  max-w-xs overflow-hidden line-clamp-4 " )=post.caption
               else
-                div(style="background-image:url('/images/instagram/"+post.id+".jpg');"   alt=post.caption class="bg-cover bg-no-repeat bg-center w-full h-full" )
+                img(src="/images/instagram/"+post.id+".jpg"   alt=post.caption class="bg-cover bg-no-repeat bg-center w-full h-full" onerror="this.style.display='none'; document.getElementById('Description-post-"+post.id+"').style.display='flex';")
+                div(class="m-2  justify-center items-center h-full hidden " id='Description-post-'+post.id) 
+                  div(class="  max-w-xs overflow-hidden line-clamp-4 " )=post.caption
 
 
 
