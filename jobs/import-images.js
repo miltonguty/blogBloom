@@ -15,7 +15,7 @@ const SaveImageDataBase = async (post) => {
   await pris.$disconnect()
   console.log('==============> ' + post.postsId)
 }
-const SavePostDataBase = async (post) => {
+const SavePostDataBase = async (post, pathSaveFilePost) => {
   const postFind = await pris.posts.findFirst({
     where: {
       mediaId: {
@@ -24,41 +24,45 @@ const SavePostDataBase = async (post) => {
     }
   }
   )
-
-  console.log('=======> ' + post.id)
   let postResult = {}
-  postResult = await pris.posts.upsert({
-    where: {
-      id: postFind.id
-    },
-    update: {
-      title: post.caption,
-      imagePreview: post.imageUrl,
-      types_id: 3, // image typeid
-      published: 1,
-      mediaId: String(post.id)
-    },
-    create: {
-      title: post.caption,
-      imagePreview: post.imageUrl,
-      types_id: 3, // image typeid
-      published: 1,
-      mediaId: String(post.id)
-    }
-  })
-  await pris.$executeRaw`delete from images where posts_id=${ postFind.id }`
+  if (postFind) {
+    await pris.$executeRaw`delete from images where posts_id=${ postFind.id }`
+    postResult = await pris.posts.update({
+      where: {
+        id: postFind.id
+      },
+      data: {
+        title: post.caption,
+        imagePreview: pathSaveFilePost,
+        types_id: 3, // image typeid
+        published: 1,
+        mediaId: String(post.id)
+      }
+    })
+  } else {
+    postResult = await pris.posts.create({
+      data: {
+        title: post.caption,
+        imagePreview: pathSaveFilePost,
+        types_id: 3, // image typeid
+        published: 1,
+        mediaId: String(post.id)
+      }
+    })
+  }
+  console.log('=======> ' + post.id)
   return postResult
 }
 const Main = async () => {
   const postNotDownloads = []
   for (const post of posts) {
     if (post.type === 'Sidecar') {
-      const postSabed = await SavePostDataBase(post)
-      // const pathSaveFilePost = 'public/images/instagram/' + post.id + '.jpg'
-      // await helper.DownloadImage(post.displayUrl, pathSaveFilePost)
+      const pathSaveFilePost = '/images/instagram/post-' + post.id + '.jpg'
+      const postSabed = await SavePostDataBase(post, pathSaveFilePost)
+      await helper.DownloadImage(post.displayUrl, pathSaveFilePost)
       let index = 0
       for (const imageUrl of post.images) {
-        const pathSaveFile = 'public/images/instagram/sidecar' + post.id + '-' + index + '.jpg'
+        const pathSaveFile = '/images/instagram/sidecar' + post.id + '-' + index + '.jpg'
         const result = await helper.DownloadImage(imageUrl, pathSaveFile)
         index++
         if (result) {
