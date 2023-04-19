@@ -1,5 +1,5 @@
-import { ApifyClient } from 'apify-client'
-import { DownloadImage, SaveFile } from './utils/helpers'
+const { ApifyClient } = require('apify-client')
+const helpers = require('./utils/helpers')
 
 const client = new ApifyClient({
   token: 'apify_api_3zobDOUAyFWl5Au4oydX9YNN99ESW947einU'
@@ -31,18 +31,14 @@ const scraper = async () => {
   const { items } = await client.dataset(run.defaultDatasetId).listItems()
   const postsJson = JSON.stringify(items)
   console.log(postsJson)
-  await SaveFile('../data/datas-instagram.json', postsJson)
+  await helpers.SaveFile('./data/datas-instagram.json', postsJson)
   return items
 }
-const posts = await scraper()
-let postNotDownloads = []
-for (const post of posts) {
-  postNotDownloads = await DownloadImage(post, '../public/images/instagram/' + post.id + '.jpg', postNotDownloads)
-}
-const postNotDownloadstoSave = JSON.stringify(postNotDownloads)
-console.error(postNotDownloadstoSave)
-await SaveFile('../data/datas-instagram-not-downloads.json', postNotDownloadstoSave)
+const Main = async () => {
+  await scraper()
 
-/* download('https://www.google.com/images/srpr/logo3w.png', 'google.png', function() {
-console.log('done');
-*/
+  /* download('https://www.google.com/images/srpr/logo3w.png', 'google.png', function() {
+  console.log('done');
+  */
+}
+Main()

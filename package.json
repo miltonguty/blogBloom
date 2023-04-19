@@ -5,8 +5,9 @@
   "scripts": {
     "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css --watch",
     "start": "node ./bin/www",
-    "scraper": "node --trace-warnings ./jobs/scrap-nodejs",
-    "scraper-images": "node --trace-warnings ./jobs/import-images"
+    "scraper-datas": "node --trace-warnings ./jobs/import-datas.js",
+    "scraper-images": "node --trace-warnings ./jobs/import-images.js",
+    "scraper-post": "node --trace-warnings ./jobs/import-post.js"
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
