@@ -1,8 +1,10 @@
 const fs = require('fs')
 const DownloadImage = async (url, pathSaveFile) => {
   try {
+    console.error(url)
+    console.error(pathSaveFile)
     const response = await fetch(url, {
-      timeout: 200000
+      timeout: 200000000
     })
     const blob = await response.blob()
     const arrayBuffer = await blob.arrayBuffer()
@@ -10,6 +12,7 @@ const DownloadImage = async (url, pathSaveFile) => {
     await fs.writeFileSync(pathSaveFile, buffer)
     return true
   } catch (err) {
+    console.error(err)
     return false
   }
 }

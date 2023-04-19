@@ -59,11 +59,13 @@ const Main = async () => {
     if (post.type === 'Sidecar') {
       const pathSaveFilePost = '/images/instagram/post-' + post.id + '.jpg'
       const postSabed = await SavePostDataBase(post, pathSaveFilePost)
-      await helper.DownloadImage(post.displayUrl, pathSaveFilePost)
+      const downloadOk = await helper.DownloadImage(post.displayUrl, './public/' + pathSaveFilePost)
+      console.log(downloadOk + ' xxxxxxxxxxxxxxx>>>' + pathSaveFilePost)
       let index = 0
       for (const imageUrl of post.images) {
         const pathSaveFile = '/images/instagram/sidecar' + post.id + '-' + index + '.jpg'
-        const result = await helper.DownloadImage(imageUrl, pathSaveFile)
+        const result = await helper.DownloadImage(imageUrl, './public/' + pathSaveFile)
+        console.log(result + ' xxxxxxxxxxxxxxx>>>' + pathSaveFile)
         index++
         if (result) {
           await SaveImageDataBase({
