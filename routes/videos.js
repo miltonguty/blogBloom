@@ -5,28 +5,43 @@ const { PrismaClient } = require('@prisma/client')
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   const pris = new PrismaClient()
-
   const types = await pris.types.findMany()
+  let viewRender = 'videos'
+  const where = {
+    nameType: {
+      equals: viewRender
+    }
+
+  }
+
+  types.forEach(item => {
+    if (item.nameType === viewRender) {
+      item.selected = 1
+    } else {
+      item.selected = 0
+    }
+  })
+
   const postByTypes = await pris.types.findMany(
     {
-      where: {
-        nameType: {
-          equals: 'image'
-        }
-      },
+      where,
       include: {
-        posts: true
+        posts: {
+          where: {
+            published: { equals: 1 }
+          }
+        }
       }
     }
   )
-  console.log(types)
   let posts = []
   if (postByTypes.length > 0) {
     posts = postByTypes[0].posts
+  } else {
+    viewRender = 'index'
   }
-
-  const categorys = await pris.types.findMany()
-  res.render('index', { title: ' Blog ', categorys, posts, types })
+  const categorys = await pris.categories.findMany()
+  res.render(viewRender, { title: ' Blog ', categorys, posts, types })
 })
 
 module.exports = router

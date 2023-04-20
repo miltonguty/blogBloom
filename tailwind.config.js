@@ -3,6 +3,9 @@ module.exports = {
   content: ['./views/**/*.{html,js,pug}'],
   theme: {
     extend: {
+      maxHeight: {
+        695: '695px'
+      },
       fontFamily: {
         'FuturaLTW01-LightOblique': 'FuturaLTW01-LightOblique',
         Blinking: 'Blinking'

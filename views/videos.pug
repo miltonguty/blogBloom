@@ -9,10 +9,10 @@ block content
           div(id='video-'+post.id class="hidden")
             div(class="flex flex-row")
               div(class="w-2/3  flex justify-center items-center")
-                video(class="w-full h-full" controls)
+                video(class="max-h-695" controls)
                   source(src=post.mainMedia  type="video/mp4")
-              div(class="w-1/3 text-sm p-5 border-solid border-l")=post.description
-  div(id="myModal" class="modal ")
+              div(class="w-1/3 text-sm p-5 border-solid border-l")=post.title
+  div(id="myModal" class="modal overflow-hidden")
     span(class="close font-normal text-white font-mono") X
     div(class="modal-content")
       div(id="modal-body")

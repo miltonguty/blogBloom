@@ -3,20 +3,17 @@ const router = express.Router()
 const { PrismaClient } = require('@prisma/client')
 
 /* GET home page. */
-router.get('/blog/:type', async (req, res, next) => {
-  const params = req.params
+router.get('/', async (req, res, next) => {
   const pris = new PrismaClient()
   const types = await pris.types.findMany()
-  let viewRender = params.type
-  let where = {}
-  if (params !== null) {
-    where = {
-      nameType: {
-        equals: viewRender
-      }
-
+  let viewRender = 'posts'
+  const where = {
+    nameType: {
+      equals: viewRender
     }
+
   }
+
   types.forEach(item => {
     if (item.nameType === viewRender) {
       item.selected = 1
@@ -44,10 +41,6 @@ router.get('/blog/:type', async (req, res, next) => {
     viewRender = 'index'
   }
   const categorys = await pris.categories.findMany()
-  console.log('-------------viewRender------------')
-  console.log(viewRender)
-  console.log('-------------postByTypes------------')
-  console.log(posts)
   res.render(viewRender, { title: ' Blog ', categorys, posts, types })
 })
 

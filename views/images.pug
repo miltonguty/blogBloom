@@ -4,6 +4,8 @@ block content
     div(class="border-t-2 min-h-full") 
       div(class=" grid grid-cols-4")
         each post in posts
-          div(class="float-left hover:border-color-primary border-solid hover:border-2")
-            a(href='/photos/'+post.id)
-              img(src=post.imagePreview alt=post.name )
+          a(href='/photos/'+post.id)
+            div(class="float-left hover:border-color-primary border-solid hover:border-2 relative h-60 w-full bg-color-segundary" onclick='showModal("video-'+post.id+'")' )
+              img(src=post.imagePreview   alt=post.caption class="bg-cover bg-no-repeat bg-center w-full h-full" onerror="this.style.display='none'; document.getElementById('Description-post-"+post.id+"').style.display='flex';")
+              div(class="m-2  justify-center items-center h-full hidden " id='Description-post-'+post.id) 
+                div(class="  max-w-xs overflow-hidden line-clamp-4 " )=post.caption
