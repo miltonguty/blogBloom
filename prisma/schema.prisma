@@ -13,6 +13,7 @@ model categories {
   description String? @db.VarChar(500)
   image       String? @db.VarChar(500)
   url         String? @db.VarChar(500)
+  deleted     Int?    @default(1) @db.TinyInt
 }
 
 model comments {
@@ -52,7 +53,7 @@ model posts {
   imagePreview String?    @db.LongText
   redirectTo   String?    @db.VarChar(400)
   title        String?    @db.VarChar(500)
-  mediaId      String?    @db.VarChar(400)
+  mediaId      String?    @db.VarChar(500)
   comments     comments[]
   images       images[]
   types        types?     @relation(fields: [types_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_posts_types")

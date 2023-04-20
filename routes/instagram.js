@@ -15,7 +15,11 @@ router.get('/', async (req, res, next) => {
       item.selected = 0
     }
   })
-  const categorys = await pris.categories.findMany()
+  const categorys = await pris.categories.findMany({
+    where: {
+      deleted: { equals: 0 }
+    }
+  })
   console.log(types)
   res.render(viewRender, { title: ' Blog ', categorys, posts, types })
 })
