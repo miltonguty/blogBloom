@@ -21,7 +21,11 @@
   width: 80%;
   display: flex;
 }
-
+#modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* The Close Button */
 .close {
   color: #242323;
@@ -30,6 +34,7 @@
   font-weight: bold;
   margin-top: -55px;
   margin-right: 40px;
+  
 }
 
 .close:hover,
